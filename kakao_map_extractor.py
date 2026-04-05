@@ -251,8 +251,11 @@ def print_places(places: list[Place], limit: int = 20) -> None:
     print(f"총 {len(places)}건")
 
 
+DEFAULT_API_KEY = "0f46d341160089ac279e6598a9d07788"
+
+
 def get_api_key() -> str:
-    key = os.environ.get("KAKAO_REST_API_KEY", "")
+    key = os.environ.get("KAKAO_REST_API_KEY", "") or DEFAULT_API_KEY
     if not key:
         key = input("카카오 REST API 키를 입력하세요: ").strip()
     if not key:
@@ -441,9 +444,12 @@ def main() -> None:
     except requests.exceptions.HTTPError as e:
         status = e.response.status_code if e.response is not None else "?"
         if status == 401:
-            print(f"오류: 인증 실패 (401). API 키를 확인하세요.")
+            print("오류: 인증 실패 (401). API 키를 확인하세요.")
+        elif status == 403:
+            print("오류: 권한 없음 (403). 카카오 개발자 사이트에서 카카오맵 API 사용 설정을 확인하세요.")
+            print("  앱 관리 > 카카오맵 > 사용 설정 > ON")
         elif status == 429:
-            print(f"오류: 요청 한도 초과 (429). 잠시 후 다시 시도하세요.")
+            print("오류: 요청 한도 초과 (429). 잠시 후 다시 시도하세요.")
         else:
             print(f"HTTP 오류: {e}")
         sys.exit(1)
