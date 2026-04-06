@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코스피 시가총액 순위</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1117;
+            --card: #1a1d28;
+            --card-hover: #222638;
+            --border: #2a2e3e;
+            --text: #e4e6ed;
+            --text-muted: #8b8fa3;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --up: #ff6b6b;
+            --down: #339af0;
+            --flat: #8b8fa3;
+            --green: #51cf66;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+        header { text-align: center; margin-bottom: 2rem; }
+        header h1 {
+            font-size: 2rem; font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        header p { color: var(--text-muted); font-size: 0.95rem; }
+
+        /* Tabs */
+        .tabs {
+            display: flex; gap: 0; margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+        .tab-btn {
+            padding: 0.75rem 1.5rem; background: none; border: none;
+            color: var(--text-muted); font-size: 0.9rem; font-weight: 500;
+            cursor: pointer; border-bottom: 2px solid transparent;
+            margin-bottom: -2px; transition: all 0.2s; font-family: inherit;
+        }
+        .tab-btn:hover { color: var(--text); }
+        .tab-btn.active {
+            color: var(--accent-light);
+            border-bottom-color: var(--accent-light);
+        }
+        .tab-panel { display: none; }
+        .tab-panel.active { display: block; }
+
+        /* Toolbar */
+        .toolbar {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.75rem;
+        }
+        .toolbar .info { color: var(--text-muted); font-size: 0.85rem; }
+
+        .btn {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.55rem 1.2rem; background: var(--accent); color: #fff;
+            border: none; border-radius: 8px; font-size: 0.85rem; font-weight: 500;
+            cursor: pointer; transition: background 0.2s, transform 0.1s; font-family: inherit;
+        }
+        .btn:hover { background: #5b4bd5; }
+        .btn:active { transform: scale(0.97); }
+        .btn svg { width: 16px; height: 16px; }
+        .btn.loading svg { animation: spin 0.8s linear infinite; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        .search-box {
+            display: flex; align-items: center; background: var(--card);
+            border: 1px solid var(--border); border-radius: 8px;
+            padding: 0.45rem 0.85rem; gap: 0.5rem;
+        }
+        .search-box svg { width: 16px; height: 16px; color: var(--text-muted); flex-shrink: 0; }
+        .search-box input {
+            background: none; border: none; outline: none;
+            color: var(--text); font-size: 0.85rem; width: 160px; font-family: inherit;
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+
+        /* Table */
+        .table-wrapper {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 12px; overflow: hidden;
+        }
+        table { width: 100%; border-collapse: collapse; }
+        thead th {
+            position: sticky; top: 0; background: #1e2130;
+            padding: 0.85rem 1rem; font-weight: 600; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 0.04em;
+            color: var(--text-muted); text-align: right; white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+        thead th:nth-child(1) { text-align: center; width: 60px; }
+        thead th:nth-child(2) { text-align: left; }
+
+        tbody tr { transition: background 0.15s; cursor: default; }
+        tbody tr:hover { background: var(--card-hover); }
+        tbody td {
+            padding: 0.75rem 1rem; font-size: 0.9rem; text-align: right;
+            border-bottom: 1px solid rgba(42, 46, 62, 0.5); white-space: nowrap;
+        }
+        tbody td:nth-child(1) { text-align: center; font-weight: 700; color: var(--text-muted); }
+        tbody td:nth-child(2) { text-align: left; font-weight: 500; }
+        tbody tr:nth-child(-n+3) td:nth-child(1) { color: var(--accent-light); }
+
+        .stock-name-cell { display: flex; align-items: center; gap: 0.6rem; }
+        .stock-logo {
+            width: 28px; height: 28px; border-radius: 50%;
+            background: #2a2e3e; flex-shrink: 0; object-fit: contain;
+        }
+        .stock-info { display: flex; flex-direction: column; }
+        .stock-code { font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+        .stock-name-link { color: var(--text); text-decoration: none; transition: color 0.15s; }
+        .stock-name-link:hover { color: var(--accent-light); }
+
+        .price-up { color: var(--up); }
+        .price-down { color: var(--down); }
+        .price-flat { color: var(--flat); }
+
+        .change-cell { display: inline-flex; align-items: center; gap: 2px; }
+        .arrow-up::before { content: "▲ "; font-size: 0.65rem; }
+        .arrow-down::before { content: "▼ "; font-size: 0.65rem; }
+
+        .market-cap-cell { font-weight: 600; font-variant-numeric: tabular-nums; }
+        .market-cap-sub { display: block; font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+
+        .growth-badge {
+            display: inline-block; padding: 0.2rem 0.6rem;
+            border-radius: 6px; font-size: 0.82rem; font-weight: 600;
+        }
+        .growth-positive { background: rgba(81, 207, 102, 0.15); color: var(--green); }
+        .growth-turnaround { background: rgba(162, 155, 254, 0.15); color: var(--accent-light); }
+
+        .op-value { font-variant-numeric: tabular-nums; }
+        .op-sub { display: block; font-size: 0.72rem; color: var(--text-muted); font-weight: 400; }
+
+        .loading-overlay {
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; padding: 5rem 2rem; gap: 1rem;
+        }
+        .spinner {
+            width: 40px; height: 40px; border: 3px solid var(--border);
+            border-top-color: var(--accent); border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        .loading-text { color: var(--text-muted); font-size: 0.9rem; }
+        .error-message { padding: 3rem 2rem; text-align: center; color: var(--up); }
+
+        /* Summary cards */
+        .summary-cards {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem; margin-bottom: 1.25rem;
+        }
+        .summary-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: 10px; padding: 1rem 1.25rem;
+        }
+        .summary-card .label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 0.3rem; }
+        .summary-card .value { font-size: 1.5rem; font-weight: 700; }
+        .summary-card .value.accent { color: var(--accent-light); }
+        .summary-card .value.green { color: var(--green); }
+
+        footer { text-align: center; margin-top: 2rem; color: var(--text-muted); font-size: 0.8rem; }
+
+        @media (max-width: 640px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 1.5rem; }
+            thead th, tbody td { padding: 0.6rem 0.5rem; font-size: 0.78rem; }
+            .search-box input { width: 120px; }
+            .tab-btn { padding: 0.6rem 0.8rem; font-size: 0.82rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>KOSPI 시가총액 TOP</h1>
+            <p>네이버 증권 API 기준 코스피 시가총액 상위 종목</p>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('all')">전체 시총 순위</button>
+            <button class="tab-btn" onclick="switchTab('growth')">영업이익 성장주</button>
+        </div>
+
+        <!-- Tab 1: 전체 시총 순위 -->
+        <div id="tab-all" class="tab-panel active">
+            <div class="toolbar">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" id="searchAll" placeholder="종목명 검색…" oninput="filterAll()">
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <span class="info" id="updateTimeAll"></span>
+                    <button class="btn" id="btnAll" onclick="loadAll()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        새로고침
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <div class="loading-overlay" id="loadAll">
+                    <div class="spinner"></div>
+                    <div class="loading-text">시가총액 데이터를 불러오는 중…</div>
+                </div>
+                <table id="tableAll" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>#</th><th>종목명</th><th>현재가</th>
+                            <th>등락</th><th>등락률</th><th>시가총액(억)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyAll"></tbody>
+                </table>
+                <div class="error-message" id="errAll" style="display:none;"></div>
+            </div>
+        </div>
+
+        <!-- Tab 2: 영업이익 성장주 -->
+        <div id="tab-growth" class="tab-panel">
+            <div class="summary-cards" id="growthSummary" style="display:none;">
+                <div class="summary-card">
+                    <div class="label">조회 대상</div>
+                    <div class="value accent" id="summaryTarget">-</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">영업이익 20%↑ 충족</div>
+                    <div class="value green" id="summaryCount">-</div>
+                </div>
+                <div class="summary-card">
+                    <div class="label">기준 기간</div>
+                    <div class="value" id="summaryPeriod" style="font-size:1.1rem;">-</div>
+                </div>
+            </div>
+            <div class="toolbar">
+                <div class="search-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                    </svg>
+                    <input type="text" id="searchGrowth" placeholder="종목명 검색…" oninput="filterGrowth()">
+                </div>
+                <div style="display:flex;align-items:center;gap:1rem;">
+                    <span class="info" id="updateTimeGrowth"></span>
+                    <button class="btn" id="btnGrowth" onclick="loadGrowth()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
+                            <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                        </svg>
+                        조회
+                    </button>
+                </div>
+            </div>
+            <div class="table-wrapper">
+                <div class="loading-overlay" id="loadGrowth" style="display:none;">
+                    <div class="spinner"></div>
+                    <div class="loading-text">시총 상위 50개 종목의 영업이익을 분석 중…</div>
+                </div>
+                <div id="growthIntro" style="padding:4rem 2rem;text-align:center;color:var(--text-muted);">
+                    위 <strong>조회</strong> 버튼을 눌러 시가총액 상위 50개 종목 중<br>
+                    최근 연간 영업이익이 <span style="color:var(--green);font-weight:600;">20% 이상 성장</span>한 종목을 확인하세요.
+                </div>
+                <table id="tableGrowth" style="display:none;">
+                    <thead>
+                        <tr>
+                            <th>시총순위</th><th>종목명</th><th>현재가</th>
+                            <th>전기 영업이익</th><th>당기 영업이익</th>
+                            <th>성장률</th><th>시가총액(억)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bodyGrowth"></tbody>
+                </table>
+                <div class="error-message" id="errGrowth" style="display:none;"></div>
+            </div>
+        </div>
+
+        <footer>
+            데이터 출처: 네이버 증권 API &middot; 조회 시점 기준 데이터입니다.
+        </footer>
+    </div>
+
+    <script>
+        let allStocks = [];
+        let growthStocks = [];
+
+        function fmt(num) {
+            if (!num || isNaN(Number(num))) return num || "-";
+            return Number(num).toLocaleString("ko-KR");
+        }
+        function now() {
+            const d = new Date();
+            return `${d.getFullYear()}.${String(d.getMonth()+1).padStart(2,"0")}.${String(d.getDate()).padStart(2,"0")} ${String(d.getHours()).padStart(2,"0")}:${String(d.getMinutes()).padStart(2,"0")} 기준`;
+        }
+
+        function switchTab(name) {
+            document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i === (name==='all'?0:1)));
+            document.getElementById('tab-all').classList.toggle('active', name==='all');
+            document.getElementById('tab-growth').classList.toggle('active', name==='growth');
+        }
+
+        /* ---- Tab 1: All stocks ---- */
+        function renderAll(stocks) {
+            const tbody = document.getElementById("bodyAll");
+            tbody.innerHTML = "";
+            stocks.forEach(s => {
+                const tr = document.createElement("tr");
+                let cc = "price-flat", ac = "";
+                if (s.change_sign==="+") { cc="price-up"; ac="arrow-up"; }
+                else if (s.change_sign==="-") { cc="price-down"; ac="arrow-down"; }
+                const url = s.code ? `https://finance.naver.com/item/main.naver?code=${s.code}` : "#";
+                const logo = s.logo_url ? `<img class="stock-logo" src="${s.logo_url}" alt="" loading="lazy" onerror="this.style.display='none'">` : "";
+                const mcap = s.market_cap_text || "";
+                tr.innerHTML = `
+                    <td>${s.rank}</td>
+                    <td><div class="stock-name-cell">${logo}<div class="stock-info"><a class="stock-name-link" href="${url}" target="_blank">${s.name}</a><span class="stock-code">${s.code}</span></div></div></td>
+                    <td>${fmt(s.current_price)}</td>
+                    <td class="${cc}"><span class="change-cell ${ac}">${fmt(s.change)}</span></td>
+                    <td class="${cc}">${s.change_rate}%</td>
+                    <td class="market-cap-cell">${fmt(s.market_cap)}${mcap?`<span class="market-cap-sub">${mcap}</span>`:""}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+        function filterAll() {
+            const q = document.getElementById("searchAll").value.trim().toLowerCase();
+            renderAll(q ? allStocks.filter(s=>s.name.toLowerCase().includes(q)) : allStocks);
+        }
+        async function loadAll() {
+            const btn=document.getElementById("btnAll"), ld=document.getElementById("loadAll"),
+                  tbl=document.getElementById("tableAll"), err=document.getElementById("errAll");
+            btn.classList.add("loading"); ld.style.display="flex"; tbl.style.display="none"; err.style.display="none";
+            try {
+                const r = await fetch("/api/stocks"); const j = await r.json();
+                if (!j.success) throw new Error(j.error);
+                allStocks = j.data; renderAll(allStocks);
+                ld.style.display="none"; tbl.style.display="table";
+                document.getElementById("updateTimeAll").textContent = now();
+            } catch(e) {
+                ld.style.display="none"; err.textContent="데이터를 불러오지 못했습니다: "+e.message; err.style.display="block";
+            } finally { btn.classList.remove("loading"); }
+        }
+
+        /* ---- Tab 2: Growth stocks ---- */
+        function renderGrowth(stocks) {
+            const tbody = document.getElementById("bodyGrowth");
+            tbody.innerHTML = "";
+            stocks.forEach(s => {
+                const tr = document.createElement("tr");
+                const url = s.code ? `https://finance.naver.com/item/main.naver?code=${s.code}` : "#";
+                const logo = s.logo_url ? `<img class="stock-logo" src="${s.logo_url}" alt="" loading="lazy" onerror="this.style.display='none'">` : "";
+                const mcap = s.market_cap_text || "";
+
+                const isTurnaround = s.op_growth === "흑자전환";
+                const growthText = isTurnaround ? "흑자전환" : `+${s.op_growth}%`;
+                const growthClass = isTurnaround ? "growth-turnaround" : "growth-positive";
+
+                const prevOp = s.previous_op;
+                const latestOp = s.latest_op;
+                const prevColor = prevOp < 0 ? "price-down" : (prevOp > 0 ? "price-up" : "");
+                const latestColor = latestOp < 0 ? "price-down" : (latestOp > 0 ? "price-up" : "");
+
+                tr.innerHTML = `
+                    <td>${s.rank}</td>
+                    <td><div class="stock-name-cell">${logo}<div class="stock-info"><a class="stock-name-link" href="${url}" target="_blank">${s.name}</a><span class="stock-code">${s.code}</span></div></div></td>
+                    <td>${fmt(s.current_price)}</td>
+                    <td class="op-value ${prevColor}">${s.previous_op_formatted}<span class="op-sub">${s.previous_period}</span></td>
+                    <td class="op-value ${latestColor}">${s.latest_op_formatted}<span class="op-sub">${s.latest_period}</span></td>
+                    <td><span class="growth-badge ${growthClass}">${growthText}</span></td>
+                    <td class="market-cap-cell">${fmt(s.market_cap)}${mcap?`<span class="market-cap-sub">${mcap}</span>`:""}</td>`;
+                tbody.appendChild(tr);
+            });
+        }
+        function filterGrowth() {
+            const q = document.getElementById("searchGrowth").value.trim().toLowerCase();
+            renderGrowth(q ? growthStocks.filter(s=>s.name.toLowerCase().includes(q)) : growthStocks);
+        }
+        async function loadGrowth() {
+            const btn=document.getElementById("btnGrowth"), ld=document.getElementById("loadGrowth"),
+                  tbl=document.getElementById("tableGrowth"), err=document.getElementById("errGrowth"),
+                  intro=document.getElementById("growthIntro"), summary=document.getElementById("growthSummary");
+            btn.classList.add("loading"); ld.style.display="flex"; tbl.style.display="none";
+            err.style.display="none"; intro.style.display="none"; summary.style.display="none";
+            try {
+                const r = await fetch("/api/stocks/profit-growth?top=50&threshold=20");
+                const j = await r.json();
+                if (!j.success) throw new Error(j.error);
+                growthStocks = j.data;
+                renderGrowth(growthStocks);
+                ld.style.display="none"; tbl.style.display="table";
+                document.getElementById("updateTimeGrowth").textContent = now();
+
+                summary.style.display = "grid";
+                document.getElementById("summaryTarget").textContent = `시총 TOP ${j.criteria.top_n}`;
+                document.getElementById("summaryCount").textContent = `${j.total}개 종목`;
+                if (growthStocks.length > 0) {
+                    const s = growthStocks[0];
+                    document.getElementById("summaryPeriod").textContent = `${s.previous_period} → ${s.latest_period}`;
+                }
+            } catch(e) {
+                ld.style.display="none"; err.textContent="데이터를 불러오지 못했습니다: "+e.message; err.style.display="block";
+            } finally { btn.classList.remove("loading"); }
+        }
+
+        loadAll();
+    </script>
+</body>
+</html>
