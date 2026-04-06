@@ -48,9 +48,8 @@ def scrape_kospi_market_cap(pages=4):
             stock_code = code_href.split("code=")[-1] if "code=" in code_href else ""
 
             current_price = cols[2].get_text(strip=True).replace(",", "")
-            change = cols[3].get_text(strip=True).replace(",", "")
 
-            change_img = cols[3].find("img") or cols[2].find_next("img")
+            change_img = cols[3].find("img")
             change_sign = ""
             if change_img:
                 alt = change_img.get("alt", "")
@@ -58,6 +57,9 @@ def scrape_kospi_market_cap(pages=4):
                     change_sign = "+"
                 elif "하락" in alt:
                     change_sign = "-"
+
+            change_text = cols[3].get_text(strip=True).replace(",", "")
+            change = "".join(c for c in change_text if c.isdigit() or c == ".")
 
             change_rate = cols[4].get_text(strip=True).replace("%", "")
 
