@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>코스피 시가총액 순위</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0f1117;
+            --card: #1a1d28;
+            --card-hover: #222638;
+            --border: #2a2e3e;
+            --text: #e4e6ed;
+            --text-muted: #8b8fa3;
+            --accent: #6c5ce7;
+            --accent-light: #a29bfe;
+            --up: #ff6b6b;
+            --down: #339af0;
+            --flat: #8b8fa3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .toolbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .toolbar .info {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .btn-refresh {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.55rem 1.2rem;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+        }
+
+        .btn-refresh:hover {
+            background: #5b4bd5;
+        }
+
+        .btn-refresh:active {
+            transform: scale(0.97);
+        }
+
+        .btn-refresh svg {
+            width: 16px;
+            height: 16px;
+            transition: transform 0.4s;
+        }
+
+        .btn-refresh.loading svg {
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.45rem 0.85rem;
+            gap: 0.5rem;
+        }
+
+        .search-box svg {
+            width: 16px;
+            height: 16px;
+            color: var(--text-muted);
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            background: none;
+            border: none;
+            outline: none;
+            color: var(--text);
+            font-size: 0.85rem;
+            width: 160px;
+            font-family: inherit;
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .table-wrapper {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead th {
+            position: sticky;
+            top: 0;
+            background: #1e2130;
+            padding: 0.85rem 1rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: var(--text-muted);
+            text-align: right;
+            white-space: nowrap;
+            border-bottom: 1px solid var(--border);
+        }
+
+        thead th:nth-child(1) { text-align: center; width: 60px; }
+        thead th:nth-child(2) { text-align: left; }
+
+        tbody tr {
+            transition: background 0.15s;
+            cursor: default;
+        }
+
+        tbody tr:hover {
+            background: var(--card-hover);
+        }
+
+        tbody td {
+            padding: 0.75rem 1rem;
+            font-size: 0.9rem;
+            text-align: right;
+            border-bottom: 1px solid rgba(42, 46, 62, 0.5);
+            white-space: nowrap;
+        }
+
+        tbody td:nth-child(1) {
+            text-align: center;
+            font-weight: 700;
+            color: var(--text-muted);
+        }
+
+        tbody td:nth-child(2) {
+            text-align: left;
+            font-weight: 500;
+        }
+
+        tbody tr:nth-child(-n+3) td:nth-child(1) {
+            color: var(--accent-light);
+        }
+
+        .stock-name-link {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .stock-name-link:hover {
+            color: var(--accent-light);
+        }
+
+        .price-up { color: var(--up); }
+        .price-down { color: var(--down); }
+        .price-flat { color: var(--flat); }
+
+        .change-cell {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+        }
+
+        .arrow-up::before { content: "▲ "; font-size: 0.65rem; }
+        .arrow-down::before { content: "▼ "; font-size: 0.65rem; }
+
+        .market-cap-cell {
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .loading-overlay {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 5rem 2rem;
+            gap: 1rem;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .error-message {
+            padding: 3rem 2rem;
+            text-align: center;
+            color: var(--up);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        @media (max-width: 640px) {
+            .container { padding: 1rem; }
+            header h1 { font-size: 1.5rem; }
+            thead th, tbody td { padding: 0.6rem 0.5rem; font-size: 0.78rem; }
+            .search-box input { width: 120px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>KOSPI 시가총액 TOP</h1>
+            <p>네이버 금융 기준 코스피 시가총액 상위 종목</p>
+        </header>
+
+        <div class="toolbar">
+            <div class="search-box">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+                </svg>
+                <input type="text" id="searchInput" placeholder="종목명 검색…" oninput="filterTable()">
+            </div>
+            <div style="display:flex;align-items:center;gap:1rem;">
+                <span class="info" id="updateTime"></span>
+                <button class="btn-refresh" id="btnRefresh" onclick="loadStocks()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
+                        <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15"/>
+                    </svg>
+                    새로고침
+                </button>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <div class="loading-overlay" id="loadingOverlay">
+                <div class="spinner"></div>
+                <div class="loading-text">시가총액 데이터를 불러오는 중…</div>
+            </div>
+            <table id="stockTable" style="display:none;">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>종목명</th>
+                        <th>현재가</th>
+                        <th>등락</th>
+                        <th>등락률</th>
+                        <th>시가총액(억)</th>
+                    </tr>
+                </thead>
+                <tbody id="stockBody"></tbody>
+            </table>
+            <div class="error-message" id="errorMessage" style="display:none;"></div>
+        </div>
+
+        <footer>
+            데이터 출처: 네이버 금융 &middot; 실시간 데이터가 아닌 스크래핑 시점 기준입니다.
+        </footer>
+    </div>
+
+    <script>
+        let allStocks = [];
+
+        function formatNumber(num) {
+            if (!num || isNaN(Number(num))) return num || "-";
+            return Number(num).toLocaleString("ko-KR");
+        }
+
+        function renderTable(stocks) {
+            const tbody = document.getElementById("stockBody");
+            tbody.innerHTML = "";
+            stocks.forEach(s => {
+                const tr = document.createElement("tr");
+
+                let changeClass = "price-flat";
+                let arrowClass = "";
+                if (s.change_sign === "+") { changeClass = "price-up"; arrowClass = "arrow-up"; }
+                else if (s.change_sign === "-") { changeClass = "price-down"; arrowClass = "arrow-down"; }
+
+                const naverUrl = s.code
+                    ? `https://finance.naver.com/item/main.naver?code=${s.code}`
+                    : "#";
+
+                tr.innerHTML = `
+                    <td>${s.rank}</td>
+                    <td><a class="stock-name-link" href="${naverUrl}" target="_blank" rel="noopener">${s.name}</a></td>
+                    <td>${formatNumber(s.current_price)}</td>
+                    <td class="${changeClass}"><span class="change-cell ${arrowClass}">${formatNumber(s.change)}</span></td>
+                    <td class="${changeClass}">${s.change_rate}%</td>
+                    <td class="market-cap-cell">${formatNumber(s.market_cap)}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function filterTable() {
+            const query = document.getElementById("searchInput").value.trim().toLowerCase();
+            if (!query) {
+                renderTable(allStocks);
+                return;
+            }
+            const filtered = allStocks.filter(s => s.name.toLowerCase().includes(query));
+            renderTable(filtered);
+        }
+
+        async function loadStocks() {
+            const btn = document.getElementById("btnRefresh");
+            const loading = document.getElementById("loadingOverlay");
+            const table = document.getElementById("stockTable");
+            const errorDiv = document.getElementById("errorMessage");
+
+            btn.classList.add("loading");
+            loading.style.display = "flex";
+            table.style.display = "none";
+            errorDiv.style.display = "none";
+
+            try {
+                const resp = await fetch("/api/stocks");
+                const json = await resp.json();
+
+                if (!json.success) throw new Error(json.error || "Unknown error");
+
+                allStocks = json.data;
+                renderTable(allStocks);
+
+                loading.style.display = "none";
+                table.style.display = "table";
+
+                const now = new Date();
+                const timeStr = `${now.getFullYear()}.${String(now.getMonth()+1).padStart(2,"0")}.${String(now.getDate()).padStart(2,"0")} ${String(now.getHours()).padStart(2,"0")}:${String(now.getMinutes()).padStart(2,"0")} 기준`;
+                document.getElementById("updateTime").textContent = timeStr;
+            } catch (e) {
+                loading.style.display = "none";
+                errorDiv.textContent = "데이터를 불러오지 못했습니다: " + e.message;
+                errorDiv.style.display = "block";
+            } finally {
+                btn.classList.remove("loading");
+            }
+        }
+
+        loadStocks();
+    </script>
+</body>
+</html>
