@@ -201,6 +201,39 @@
             font-weight: 500;
         }
 
+        .stock-name-cell {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .stock-logo {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #2a2e3e;
+            flex-shrink: 0;
+            object-fit: contain;
+        }
+
+        .stock-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stock-code {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .market-cap-sub {
+            display: block;
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
         tbody tr:nth-child(-n+3) td:nth-child(1) {
             color: var(--accent-light);
         }
@@ -281,7 +314,7 @@
     <div class="container">
         <header>
             <h1>KOSPI 시가총액 TOP</h1>
-            <p>네이버 금융 기준 코스피 시가총액 상위 종목</p>
+            <p>네이버 증권 API 기준 코스피 시가총액 상위 종목</p>
         </header>
 
         <div class="toolbar">
@@ -325,7 +358,7 @@
         </div>
 
         <footer>
-            데이터 출처: 네이버 금융 &middot; 실시간 데이터가 아닌 스크래핑 시점 기준입니다.
+            데이터 출처: 네이버 증권 API &middot; 조회 시점 기준 데이터입니다.
         </footer>
     </div>
 
@@ -352,13 +385,27 @@
                     ? `https://finance.naver.com/item/main.naver?code=${s.code}`
                     : "#";
 
+                const logoHtml = s.logo_url
+                    ? `<img class="stock-logo" src="${s.logo_url}" alt="" loading="lazy" onerror="this.style.display='none'">`
+                    : "";
+
+                const mcapText = s.market_cap_text || "";
+
                 tr.innerHTML = `
                     <td>${s.rank}</td>
-                    <td><a class="stock-name-link" href="${naverUrl}" target="_blank" rel="noopener">${s.name}</a></td>
+                    <td>
+                        <div class="stock-name-cell">
+                            ${logoHtml}
+                            <div class="stock-info">
+                                <a class="stock-name-link" href="${naverUrl}" target="_blank" rel="noopener">${s.name}</a>
+                                <span class="stock-code">${s.code}</span>
+                            </div>
+                        </div>
+                    </td>
                     <td>${formatNumber(s.current_price)}</td>
                     <td class="${changeClass}"><span class="change-cell ${arrowClass}">${formatNumber(s.change)}</span></td>
                     <td class="${changeClass}">${s.change_rate}%</td>
-                    <td class="market-cap-cell">${formatNumber(s.market_cap)}</td>
+                    <td class="market-cap-cell">${formatNumber(s.market_cap)}${mcapText ? `<span class="market-cap-sub">${mcapText}</span>` : ""}</td>
                 `;
                 tbody.appendChild(tr);
             });
