@@ -1,0 +1,884 @@
+{
+  "fukuoka": {
+    "name_ko": "후쿠오카",
+    "name_ja": "福岡",
+    "region": "kyushu",
+    "description": "규슈의 관문, 일본 라멘과 야타이의 성지",
+    "airport": "FUK",
+    "spots": [
+      {
+        "name": "하카타역",
+        "name_ja": "博多駅",
+        "type": "landmark",
+        "category": "교통/쇼핑",
+        "hours": "05:00-24:00",
+        "duration_min": 60,
+        "description": "후쿠오카의 중심 터미널역, 쇼핑몰과 맛집 다수",
+        "lat": 33.5898,
+        "lng": 130.4207
+      },
+      {
+        "name": "캐널시티 하카타",
+        "name_ja": "キャナルシティ博多",
+        "type": "attraction",
+        "category": "쇼핑/엔터테인먼트",
+        "hours": "10:00-21:00",
+        "duration_min": 90,
+        "description": "대형 복합 쇼핑몰, 라멘 스타디움 입점",
+        "lat": 33.5894,
+        "lng": 130.4110
+      },
+      {
+        "name": "오호리 공원",
+        "name_ja": "大濠公園",
+        "type": "attraction",
+        "category": "자연/공원",
+        "hours": "07:00-23:00",
+        "duration_min": 60,
+        "description": "후쿠오카 시민의 휴식처, 아름다운 호수 공원",
+        "lat": 33.5861,
+        "lng": 130.3768
+      },
+      {
+        "name": "후쿠오카성 터 (마이즈루 공원)",
+        "name_ja": "福岡城跡",
+        "type": "attraction",
+        "category": "역사/문화",
+        "hours": "항상 개방",
+        "duration_min": 60,
+        "description": "에도시대 후쿠오카 번의 성터, 벚꽃 명소",
+        "lat": 33.5848,
+        "lng": 130.3817
+      },
+      {
+        "name": "나카스 야타이",
+        "name_ja": "中洲屋台",
+        "type": "attraction",
+        "category": "먹거리/야경",
+        "hours": "18:00-02:00",
+        "duration_min": 90,
+        "description": "후쿠오카 명물 노점 포장마차 거리",
+        "lat": 33.5925,
+        "lng": 130.4048
+      },
+      {
+        "name": "텐진 지하상가",
+        "name_ja": "天神地下街",
+        "type": "attraction",
+        "category": "쇼핑",
+        "hours": "10:00-20:00",
+        "duration_min": 90,
+        "description": "일본 최대 규모의 지하 쇼핑가",
+        "lat": 33.5903,
+        "lng": 130.3987
+      },
+      {
+        "name": "다자이후 텐만구",
+        "name_ja": "太宰府天満宮",
+        "type": "attraction",
+        "category": "신사/역사",
+        "hours": "06:00-19:00",
+        "duration_min": 120,
+        "description": "학문의 신을 모시는 유명 신사, 우메가에모치가 명물",
+        "lat": 33.5215,
+        "lng": 130.5352
+      },
+      {
+        "name": "후쿠오카 타워",
+        "name_ja": "福岡タワー",
+        "type": "attraction",
+        "category": "전망대",
+        "hours": "09:30-22:00",
+        "duration_min": 60,
+        "description": "234m 해변 타워, 후쿠오카 시내 전경 조망",
+        "lat": 33.5933,
+        "lng": 130.3512
+      },
+      {
+        "name": "모모치 해변",
+        "name_ja": "百道浜",
+        "type": "attraction",
+        "category": "자연/해변",
+        "hours": "항상 개방",
+        "duration_min": 60,
+        "description": "후쿠오카 타워 인근 인공 해변, 산책로",
+        "lat": 33.5952,
+        "lng": 130.3487
+      },
+      {
+        "name": "쿠시다 신사",
+        "name_ja": "櫛田神社",
+        "type": "attraction",
+        "category": "신사/역사",
+        "hours": "04:00-22:00",
+        "duration_min": 40,
+        "description": "하카타 기온 야마카사 축제의 본거지",
+        "lat": 33.5905,
+        "lng": 130.4099
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "이치란 라멘 본점",
+        "name_ja": "一蘭 本社総本店",
+        "category": "라멘",
+        "price_range": "¥800-1200",
+        "hours": "10:00-06:00",
+        "duration_min": 40,
+        "description": "천연 돈코츠 라멘 전문점, 후쿠오카 본점",
+        "must_try": "천연 돈코츠 라멘",
+        "lat": 33.5874,
+        "lng": 130.4051
+      },
+      {
+        "name": "이치후지",
+        "name_ja": "一双",
+        "category": "라멘",
+        "price_range": "¥700-1000",
+        "hours": "11:00-23:00",
+        "duration_min": 40,
+        "description": "진한 돈코츠 라멘으로 유명한 인기 가게",
+        "must_try": "돈코츠 라멘 (곱빼기 무료)",
+        "lat": 33.5907,
+        "lng": 130.4218
+      },
+      {
+        "name": "모츠나베 야마나카",
+        "name_ja": "もつ鍋 やま中",
+        "category": "모츠나베",
+        "price_range": "¥1500-3000",
+        "hours": "17:00-23:00",
+        "duration_min": 70,
+        "description": "후쿠오카 명물 모츠나베(곱창전골) 맛집",
+        "must_try": "미소 모츠나베",
+        "lat": 33.5891,
+        "lng": 130.4012
+      },
+      {
+        "name": "야나기바시 렌고 시장",
+        "name_ja": "柳橋連合市場",
+        "category": "시장/해산물",
+        "price_range": "¥500-2000",
+        "hours": "08:00-18:00",
+        "duration_min": 60,
+        "description": "후쿠오카의 부엌, 신선한 해산물과 먹거리",
+        "must_try": "해산물 덮밥",
+        "lat": 33.5873,
+        "lng": 130.4043
+      },
+      {
+        "name": "스시로 하카타점",
+        "name_ja": "スシロー 博多店",
+        "category": "회전초밥",
+        "price_range": "¥1000-2000",
+        "hours": "11:00-23:00",
+        "duration_min": 50,
+        "description": "가성비 좋은 회전초밥 체인",
+        "must_try": "제철 초밥 세트",
+        "lat": 33.5899,
+        "lng": 130.4185
+      },
+      {
+        "name": "텐진 호루몬",
+        "name_ja": "天神ホルモン",
+        "category": "야키니쿠/호르몬",
+        "price_range": "¥1000-2500",
+        "hours": "11:30-23:00",
+        "duration_min": 60,
+        "description": "후쿠오카 인기 호르몬(곱창) 구이 전문점",
+        "must_try": "모듬 호르몬 구이",
+        "lat": 33.5905,
+        "lng": 130.3998
+      },
+      {
+        "name": "하카타 미즈타키 하시다",
+        "name_ja": "博多水炊き 橋田",
+        "category": "미즈타키",
+        "price_range": "¥3000-5000",
+        "hours": "17:00-22:00",
+        "duration_min": 80,
+        "description": "후쿠오카 전통 닭 미즈타키(수육) 전문점",
+        "must_try": "미즈타키 코스",
+        "lat": 33.5868,
+        "lng": 130.4023
+      },
+      {
+        "name": "우동 타이라",
+        "name_ja": "うどん平",
+        "category": "우동",
+        "price_range": "¥500-900",
+        "hours": "11:00-15:00",
+        "duration_min": 35,
+        "description": "부드러운 하카타 우동 맛집",
+        "must_try": "마루텐 우동",
+        "lat": 33.5883,
+        "lng": 130.4175
+      }
+    ]
+  },
+  "nagasaki": {
+    "name_ko": "나가사키",
+    "name_ja": "長崎",
+    "region": "kyushu",
+    "description": "이국적인 분위기와 역사가 공존하는 항구 도시",
+    "spots": [
+      {
+        "name": "글로버 가든",
+        "name_ja": "グラバー園",
+        "type": "attraction",
+        "category": "역사/문화",
+        "hours": "08:00-18:00",
+        "duration_min": 90,
+        "description": "유네스코 세계문화유산, 서양식 건축물과 나가사키 항구 전경",
+        "lat": 32.7334,
+        "lng": 129.8649
+      },
+      {
+        "name": "오우라 천주당",
+        "name_ja": "大浦天主堂",
+        "type": "attraction",
+        "category": "역사/문화",
+        "hours": "08:00-18:00",
+        "duration_min": 40,
+        "description": "일본 최초의 고딕 양식 교회, 세계문화유산",
+        "lat": 32.7339,
+        "lng": 129.8661
+      },
+      {
+        "name": "평화 공원",
+        "name_ja": "平和公園",
+        "type": "attraction",
+        "category": "역사/추모",
+        "hours": "항상 개방",
+        "duration_min": 60,
+        "description": "원폭 희생자를 추모하는 공원, 평화 기념상",
+        "lat": 32.7741,
+        "lng": 129.8644
+      },
+      {
+        "name": "원폭 자료관",
+        "name_ja": "長崎原爆資料館",
+        "type": "attraction",
+        "category": "박물관",
+        "hours": "08:30-17:30",
+        "duration_min": 60,
+        "description": "나가사키 원폭 관련 역사 자료관",
+        "lat": 32.7731,
+        "lng": 129.8637
+      },
+      {
+        "name": "이나사야마 전망대",
+        "name_ja": "稲佐山展望台",
+        "type": "attraction",
+        "category": "전망대/야경",
+        "hours": "09:00-22:00",
+        "duration_min": 90,
+        "description": "세계 3대 야경 중 하나, 나가사키 시내 파노라마",
+        "lat": 32.7558,
+        "lng": 129.8506
+      },
+      {
+        "name": "데지마",
+        "name_ja": "出島",
+        "type": "attraction",
+        "category": "역사/문화",
+        "hours": "08:00-21:00",
+        "duration_min": 60,
+        "description": "에도시대 네덜란드 무역 거점, 복원된 역사 유적",
+        "lat": 32.7425,
+        "lng": 129.8712
+      },
+      {
+        "name": "나가사키 차이나타운 (신치 중화가)",
+        "name_ja": "長崎新地中華街",
+        "type": "attraction",
+        "category": "쇼핑/먹거리",
+        "hours": "10:00-21:00",
+        "duration_min": 60,
+        "description": "일본 3대 차이나타운, 짬뽕과 사라우동의 본고장",
+        "lat": 32.7408,
+        "lng": 129.8742
+      },
+      {
+        "name": "메가네바시 (안경다리)",
+        "name_ja": "眼鏡橋",
+        "type": "attraction",
+        "category": "역사/관광",
+        "hours": "항상 개방",
+        "duration_min": 30,
+        "description": "1634년에 만들어진 일본 최초의 아치형 석조 다리",
+        "lat": 32.7494,
+        "lng": 129.8771
+      },
+      {
+        "name": "하우스텐보스",
+        "name_ja": "ハウステンボス",
+        "type": "attraction",
+        "category": "테마파크",
+        "hours": "09:00-21:00",
+        "duration_min": 300,
+        "description": "네덜란드를 재현한 대규모 테마파크 (사세보 소재)",
+        "lat": 33.0858,
+        "lng": 129.7871
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "시카이로",
+        "name_ja": "四海樓",
+        "category": "짬뽕",
+        "price_range": "¥1000-1500",
+        "hours": "11:30-15:00, 17:00-21:00",
+        "duration_min": 50,
+        "description": "나가사키 짬뽕 발상지, 120년 전통",
+        "must_try": "나가사키 짬뽕",
+        "lat": 32.7333,
+        "lng": 129.8670
+      },
+      {
+        "name": "코자쿠라",
+        "name_ja": "江山楼",
+        "category": "중화요리",
+        "price_range": "¥800-2000",
+        "hours": "11:00-21:00",
+        "duration_min": 50,
+        "description": "차이나타운 대표 중화요리 맛집",
+        "must_try": "짬뽕, 사라우동",
+        "lat": 32.7410,
+        "lng": 129.8745
+      },
+      {
+        "name": "츠키미야",
+        "name_ja": "ツル茶ん",
+        "category": "카페/경양식",
+        "price_range": "¥800-1500",
+        "hours": "09:00-21:00",
+        "duration_min": 50,
+        "description": "일본 최초의 카페, 터키라이스(토르코라이스) 발상지",
+        "must_try": "토르코라이스",
+        "lat": 32.7472,
+        "lng": 129.8776
+      },
+      {
+        "name": "요시무네",
+        "name_ja": "吉宗",
+        "category": "전통요리",
+        "price_range": "¥1200-2500",
+        "hours": "11:00-21:00",
+        "duration_min": 50,
+        "description": "1866년 창업, 나가사키 전통 찐 요리",
+        "must_try": "젓가락 세트 (무시즈시+쟈완무시)",
+        "lat": 32.7465,
+        "lng": 129.8760
+      },
+      {
+        "name": "카이센동 츠지",
+        "name_ja": "海鮮丼 辻",
+        "category": "해산물",
+        "price_range": "¥1000-2000",
+        "hours": "11:00-14:00, 17:00-21:00",
+        "duration_min": 45,
+        "description": "신선한 해산물 덮밥 전문점",
+        "must_try": "특선 해산물 덮밥",
+        "lat": 32.7450,
+        "lng": 129.8750
+      },
+      {
+        "name": "이와사키 본포",
+        "name_ja": "岩崎本舗",
+        "category": "간식",
+        "price_range": "¥300-600",
+        "hours": "10:00-19:00",
+        "duration_min": 20,
+        "description": "나가사키 명물 가쿠니만주(삼겹살만두) 전문점",
+        "must_try": "가쿠니만주",
+        "lat": 32.7405,
+        "lng": 129.8740
+      }
+    ]
+  },
+  "osaka": {
+    "name_ko": "오사카",
+    "name_ja": "大阪",
+    "region": "kansai",
+    "description": "맛의 도시, 쿠이다오레 문화의 본고장",
+    "airport": "KIX",
+    "spots": [
+      {
+        "name": "오사카성",
+        "name_ja": "大阪城",
+        "type": "attraction",
+        "category": "역사/문화",
+        "hours": "09:00-17:00",
+        "duration_min": 90,
+        "description": "도요토미 히데요시가 지은 일본의 대표적인 성",
+        "lat": 34.6873,
+        "lng": 135.5262
+      },
+      {
+        "name": "도톤보리",
+        "name_ja": "道頓堀",
+        "type": "attraction",
+        "category": "쇼핑/먹거리",
+        "hours": "항상 개방",
+        "duration_min": 120,
+        "description": "오사카의 상징적인 거리, 글리코 간판과 먹거리 천국",
+        "lat": 34.6687,
+        "lng": 135.5024
+      },
+      {
+        "name": "신세카이/츠텐카쿠",
+        "name_ja": "新世界/通天閣",
+        "type": "attraction",
+        "category": "관광/먹거리",
+        "hours": "10:00-20:00",
+        "duration_min": 90,
+        "description": "레트로한 오사카 분위기와 쿠시카츠 거리",
+        "lat": 34.6524,
+        "lng": 135.5063
+      },
+      {
+        "name": "유니버설 스튜디오 재팬",
+        "name_ja": "ユニバーサル・スタジオ・ジャパン",
+        "type": "attraction",
+        "category": "테마파크",
+        "hours": "09:00-21:00",
+        "duration_min": 480,
+        "description": "세계적인 테마파크, 해리포터/마리오 월드",
+        "lat": 34.6654,
+        "lng": 135.4323
+      },
+      {
+        "name": "구로몬 시장",
+        "name_ja": "黒門市場",
+        "type": "attraction",
+        "category": "시장/먹거리",
+        "hours": "09:00-18:00",
+        "duration_min": 90,
+        "description": "오사카의 부엌, 신선한 해산물과 시식 천국",
+        "lat": 34.6624,
+        "lng": 135.5067
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "리쿠로 오지상 치즈케이크",
+        "name_ja": "りくろーおじさんの店",
+        "category": "디저트",
+        "price_range": "¥800-1000",
+        "hours": "09:30-21:30",
+        "duration_min": 20,
+        "description": "오사카 명물 폭신한 치즈케이크 전문점",
+        "must_try": "야키타테 치즈케이크",
+        "lat": 34.6687,
+        "lng": 135.5013
+      },
+      {
+        "name": "쿠시카츠 다루마",
+        "name_ja": "串カツだるま",
+        "category": "쿠시카츠",
+        "price_range": "¥1000-2000",
+        "hours": "11:00-22:30",
+        "duration_min": 50,
+        "description": "오사카 명물 꼬치 튀김 원조",
+        "must_try": "쿠시카츠 모듬",
+        "lat": 34.6523,
+        "lng": 135.5062
+      },
+      {
+        "name": "치보 본점",
+        "name_ja": "千房 本店",
+        "category": "오코노미야키",
+        "price_range": "¥900-1800",
+        "hours": "11:00-23:00",
+        "duration_min": 50,
+        "description": "오사카 대표 오코노미야키 체인 본점",
+        "must_try": "도톤보리 스페셜",
+        "lat": 34.6690,
+        "lng": 135.5028
+      },
+      {
+        "name": "타코야키 와나카",
+        "name_ja": "たこ焼き わなか",
+        "category": "타코야키",
+        "price_range": "¥500-800",
+        "hours": "10:00-21:00",
+        "duration_min": 20,
+        "description": "오사카 타코야키 맛집, 바삭한 식감",
+        "must_try": "타코야키 8개입",
+        "lat": 34.6685,
+        "lng": 135.5019
+      }
+    ]
+  },
+  "tokyo": {
+    "name_ko": "도쿄",
+    "name_ja": "東京",
+    "region": "kanto",
+    "description": "일본의 수도, 전통과 현대가 조화로운 메가시티",
+    "airport": "NRT",
+    "spots": [
+      {
+        "name": "아사쿠사 센소지",
+        "name_ja": "浅草寺",
+        "type": "attraction",
+        "category": "신사/역사",
+        "hours": "06:00-17:00",
+        "duration_min": 90,
+        "description": "도쿄에서 가장 오래된 사찰, 가미나리몬 포토존",
+        "lat": 35.7148,
+        "lng": 139.7967
+      },
+      {
+        "name": "시부야 스크램블 교차로",
+        "name_ja": "渋谷スクランブル交差点",
+        "type": "attraction",
+        "category": "관광/쇼핑",
+        "hours": "항상 개방",
+        "duration_min": 60,
+        "description": "세계에서 가장 유명한 교차로",
+        "lat": 35.6595,
+        "lng": 139.7004
+      },
+      {
+        "name": "아키하바라",
+        "name_ja": "秋葉原",
+        "type": "attraction",
+        "category": "쇼핑/문화",
+        "hours": "10:00-21:00",
+        "duration_min": 120,
+        "description": "전자상가와 애니메이션의 성지",
+        "lat": 35.7023,
+        "lng": 139.7745
+      },
+      {
+        "name": "도쿄 타워",
+        "name_ja": "東京タワー",
+        "type": "attraction",
+        "category": "전망대",
+        "hours": "09:00-23:00",
+        "duration_min": 60,
+        "description": "도쿄의 상징적인 랜드마크",
+        "lat": 35.6586,
+        "lng": 139.7454
+      },
+      {
+        "name": "메이지 신궁",
+        "name_ja": "明治神宮",
+        "type": "attraction",
+        "category": "신사",
+        "hours": "일출-일몰",
+        "duration_min": 60,
+        "description": "도쿄 중심의 숲속 신사",
+        "lat": 35.6764,
+        "lng": 139.6993
+      },
+      {
+        "name": "신주쿠 교엔",
+        "name_ja": "新宿御苑",
+        "type": "attraction",
+        "category": "자연/공원",
+        "hours": "09:00-16:00",
+        "duration_min": 90,
+        "description": "도심 속 아름다운 정원",
+        "lat": 35.6852,
+        "lng": 139.7100
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "이치란 라멘 시부야점",
+        "name_ja": "一蘭 渋谷店",
+        "category": "라멘",
+        "price_range": "¥900-1300",
+        "hours": "24시간",
+        "duration_min": 40,
+        "description": "인기 돈코츠 라멘 체인",
+        "must_try": "천연 돈코츠 라멘",
+        "lat": 35.6600,
+        "lng": 139.6990
+      },
+      {
+        "name": "츠키지 장외시장",
+        "name_ja": "築地場外市場",
+        "category": "시장/해산물",
+        "price_range": "¥500-3000",
+        "hours": "05:00-14:00",
+        "duration_min": 90,
+        "description": "도쿄 최대 해산물 시장",
+        "must_try": "참치 스시, 타마고야키",
+        "lat": 35.6654,
+        "lng": 139.7707
+      },
+      {
+        "name": "아후리 라멘",
+        "name_ja": "AFURI",
+        "category": "라멘",
+        "price_range": "¥900-1400",
+        "hours": "11:00-23:00",
+        "duration_min": 40,
+        "description": "유즈(유자) 시오 라멘으로 유명",
+        "must_try": "유즈시오 라멘",
+        "lat": 35.6620,
+        "lng": 139.7150
+      },
+      {
+        "name": "긴자 바이린",
+        "name_ja": "銀座梅林",
+        "category": "돈카츠",
+        "price_range": "¥1200-2000",
+        "hours": "11:00-21:00",
+        "duration_min": 50,
+        "description": "1927년 창업 돈카츠 원조",
+        "must_try": "히레카츠 정식",
+        "lat": 35.6723,
+        "lng": 139.7648
+      }
+    ]
+  },
+  "kyoto": {
+    "name_ko": "교토",
+    "name_ja": "京都",
+    "region": "kansai",
+    "description": "천년 고도, 일본 전통문화의 중심지",
+    "spots": [
+      {
+        "name": "킨카쿠지 (금각사)",
+        "name_ja": "金閣寺",
+        "type": "attraction",
+        "category": "사찰",
+        "hours": "09:00-17:00",
+        "duration_min": 60,
+        "description": "황금빛 사찰, 교토의 상징",
+        "lat": 35.0394,
+        "lng": 135.7292
+      },
+      {
+        "name": "후시미이나리 타이샤",
+        "name_ja": "伏見稲荷大社",
+        "type": "attraction",
+        "category": "신사",
+        "hours": "항상 개방",
+        "duration_min": 120,
+        "description": "수천 개의 붉은 도리이로 유명",
+        "lat": 34.9671,
+        "lng": 135.7727
+      },
+      {
+        "name": "아라시야마 대나무숲",
+        "name_ja": "嵐山竹林",
+        "type": "attraction",
+        "category": "자연",
+        "hours": "항상 개방",
+        "duration_min": 90,
+        "description": "환상적인 대나무 숲길",
+        "lat": 35.0170,
+        "lng": 135.6713
+      },
+      {
+        "name": "기요미즈데라 (청수사)",
+        "name_ja": "清水寺",
+        "type": "attraction",
+        "category": "사찰",
+        "hours": "06:00-18:00",
+        "duration_min": 90,
+        "description": "절벽 위 무대가 유명한 세계유산 사찰",
+        "lat": 34.9949,
+        "lng": 135.7850
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "니시키 시장",
+        "name_ja": "錦市場",
+        "category": "시장/먹거리",
+        "price_range": "¥500-2000",
+        "hours": "09:00-18:00",
+        "duration_min": 90,
+        "description": "교토의 부엌, 400년 전통 시장",
+        "must_try": "다시마키 타마고, 두부 도넛",
+        "lat": 35.0050,
+        "lng": 135.7648
+      },
+      {
+        "name": "이치조지 멘야 키쿠스이",
+        "name_ja": "麺屋極鶏",
+        "category": "라멘",
+        "price_range": "¥800-1100",
+        "hours": "11:30-22:00",
+        "duration_min": 40,
+        "description": "교토 라멘 격전지의 인기 가게",
+        "must_try": "토리하제 라멘",
+        "lat": 35.0430,
+        "lng": 135.7935
+      }
+    ]
+  },
+  "beppu": {
+    "name_ko": "벳푸",
+    "name_ja": "別府",
+    "region": "kyushu",
+    "description": "일본 최대의 온천 도시",
+    "spots": [
+      {
+        "name": "벳푸 지옥 순회",
+        "name_ja": "別府地獄めぐり",
+        "type": "attraction",
+        "category": "온천/관광",
+        "hours": "08:00-17:00",
+        "duration_min": 180,
+        "description": "7개의 개성 있는 지옥 온천 관광",
+        "lat": 33.3211,
+        "lng": 131.4770
+      },
+      {
+        "name": "타케가와라 온천",
+        "name_ja": "竹瓦温泉",
+        "type": "attraction",
+        "category": "온천",
+        "hours": "06:30-22:30",
+        "duration_min": 60,
+        "description": "1879년 개업, 레트로 분위기의 공중 온천",
+        "lat": 33.2812,
+        "lng": 131.5054
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "지옥찜 공방 칸나와",
+        "name_ja": "地獄蒸し工房 鉄輪",
+        "category": "지옥찜",
+        "price_range": "¥500-1500",
+        "hours": "09:00-21:00",
+        "duration_min": 60,
+        "description": "온천 증기로 직접 음식을 쪄먹는 체험",
+        "must_try": "지옥찜 세트",
+        "lat": 33.3210,
+        "lng": 131.4768
+      },
+      {
+        "name": "토요츠네",
+        "name_ja": "とよ常",
+        "category": "덮밥",
+        "price_range": "¥700-1300",
+        "hours": "11:00-14:30",
+        "duration_min": 40,
+        "description": "벳푸 명물 대형 텐동(튀김 덮밥)",
+        "must_try": "특대 텐동",
+        "lat": 33.2800,
+        "lng": 131.5040
+      }
+    ]
+  },
+  "kumamoto": {
+    "name_ko": "구마모토",
+    "name_ja": "熊本",
+    "region": "kyushu",
+    "description": "구마몬의 고장, 웅장한 구마모토 성의 도시",
+    "spots": [
+      {
+        "name": "구마모토 성",
+        "name_ja": "熊本城",
+        "type": "attraction",
+        "category": "역사/성",
+        "hours": "09:00-17:00",
+        "duration_min": 90,
+        "description": "일본 3대 명성, 복원 중인 웅장한 성",
+        "lat": 32.8060,
+        "lng": 130.7058
+      },
+      {
+        "name": "스이젠지 정원",
+        "name_ja": "水前寺成趣園",
+        "type": "attraction",
+        "category": "정원",
+        "hours": "07:30-18:00",
+        "duration_min": 60,
+        "description": "400년 역사의 일본식 회유 정원",
+        "lat": 32.7876,
+        "lng": 130.7267
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "구마모토 라멘 코무라사키",
+        "name_ja": "こむらさき",
+        "category": "라멘",
+        "price_range": "¥700-1000",
+        "hours": "11:00-20:00",
+        "duration_min": 40,
+        "description": "구마모토 라멘의 원조, 마늘칩이 특징",
+        "must_try": "구마모토 라멘",
+        "lat": 32.8017,
+        "lng": 130.7088
+      }
+    ]
+  },
+  "yufuin": {
+    "name_ko": "유후인",
+    "name_ja": "由布院",
+    "region": "kyushu",
+    "description": "그림 같은 온천 마을, 유후다케 산 아래 아기자기한 거리",
+    "spots": [
+      {
+        "name": "유후인 플로랄 빌리지",
+        "name_ja": "湯布院フローラルヴィレッジ",
+        "type": "attraction",
+        "category": "쇼핑/관광",
+        "hours": "09:30-17:30",
+        "duration_min": 60,
+        "description": "영국 코츠월즈를 재현한 아기자기한 마을",
+        "lat": 33.2661,
+        "lng": 131.3592
+      },
+      {
+        "name": "긴린코 호수",
+        "name_ja": "金鱗湖",
+        "type": "attraction",
+        "category": "자연",
+        "hours": "항상 개방",
+        "duration_min": 40,
+        "description": "아침 안개가 아름다운 호수",
+        "lat": 33.2670,
+        "lng": 131.3710
+      },
+      {
+        "name": "유노쓰보 거리",
+        "name_ja": "湯の坪街道",
+        "type": "attraction",
+        "category": "쇼핑/산책",
+        "hours": "09:00-18:00",
+        "duration_min": 90,
+        "description": "유후인 메인 산책 거리, 카페와 소품샵 가득",
+        "lat": 33.2680,
+        "lng": 131.3650
+      }
+    ],
+    "restaurants": [
+      {
+        "name": "유후마부시 신",
+        "name_ja": "由布まぶし 心",
+        "category": "히츠마부시",
+        "price_range": "¥2000-3500",
+        "hours": "10:30-14:30",
+        "duration_min": 50,
+        "description": "유후인 명물 히츠마부시(장어덮밥), 분고규(소고기) 마부시",
+        "must_try": "분고규 마부시",
+        "lat": 33.2675,
+        "lng": 131.3600
+      },
+      {
+        "name": "비스피크",
+        "name_ja": "B-speak",
+        "category": "디저트",
+        "price_range": "¥500-1500",
+        "hours": "10:00-17:00",
+        "duration_min": 20,
+        "description": "유후인 대표 롤케이크, 오전에 매진 필수",
+        "must_try": "P롤 (롤케이크)",
+        "lat": 33.2672,
+        "lng": 131.3620
+      }
+    ]
+  }
+}

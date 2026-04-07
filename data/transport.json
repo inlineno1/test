@@ -1,0 +1,92 @@
+{
+  "flights": {
+    "ICN-FUK": {
+      "from": "인천공항 (ICN)",
+      "to": "후쿠오카공항 (FUK)",
+      "duration_min": 90,
+      "typical_departures": ["07:00", "09:00", "10:30", "13:00", "15:00", "17:00", "19:00"],
+      "typical_arrivals_offset_min": 90,
+      "note": "시차 없음, 입국심사 약 30-60분 소요"
+    },
+    "FUK-ICN": {
+      "from": "후쿠오카공항 (FUK)",
+      "to": "인천공항 (ICN)",
+      "duration_min": 100,
+      "typical_departures": ["08:30", "10:00", "12:00", "14:30", "16:00", "18:00", "20:00"],
+      "typical_arrivals_offset_min": 100,
+      "note": "체크인 2시간 전 도착 권장"
+    },
+    "ICN-KIX": {
+      "from": "인천공항 (ICN)",
+      "to": "간사이공항 (KIX)",
+      "duration_min": 120,
+      "typical_departures": ["07:30", "09:00", "11:00", "14:00", "16:00", "19:00"],
+      "typical_arrivals_offset_min": 120,
+      "note": "시차 없음, 간사이공항에서 난바까지 특급 약 45분"
+    },
+    "ICN-NRT": {
+      "from": "인천공항 (ICN)",
+      "to": "나리타공항 (NRT)",
+      "duration_min": 150,
+      "typical_departures": ["07:00", "09:30", "11:00", "14:00", "17:00"],
+      "typical_arrivals_offset_min": 150,
+      "note": "시차 없음, 나리타에서 도쿄 도심까지 약 60-90분"
+    }
+  },
+  "trains": {
+    "fukuoka-nagasaki": {
+      "from": "하카타역",
+      "to": "나가사키역",
+      "type": "서규슈 신칸센 (카모메)",
+      "duration_min": 80,
+      "price": "¥5,520",
+      "frequency": "매시 1-2편",
+      "note": "2022년 개통, 다케오온천역 환승"
+    },
+    "fukuoka-kumamoto": {
+      "from": "하카타역",
+      "to": "구마모토역",
+      "type": "신칸센 (츠바메/사쿠라)",
+      "duration_min": 35,
+      "price": "¥5,230",
+      "frequency": "매시 2-3편",
+      "note": "규슈 신칸센 이용"
+    },
+    "fukuoka-beppu": {
+      "from": "하카타역",
+      "to": "벳푸역",
+      "type": "특급 소닉",
+      "duration_min": 120,
+      "price": "¥5,680",
+      "frequency": "매시 1편",
+      "note": "일반 특급열차"
+    },
+    "fukuoka-yufuin": {
+      "from": "하카타역",
+      "to": "유후인역",
+      "type": "특급 유후인노모리",
+      "duration_min": 130,
+      "price": "¥4,650",
+      "frequency": "1일 3편",
+      "note": "인기 관광 열차, 예약 필수"
+    },
+    "beppu-yufuin": {
+      "from": "벳푸역",
+      "to": "유후인역",
+      "type": "JR 규다이본선",
+      "duration_min": 60,
+      "price": "¥1,170",
+      "frequency": "매시 1편",
+      "note": "보통열차"
+    },
+    "nagasaki-kumamoto": {
+      "from": "나가사키역",
+      "to": "구마모토역",
+      "type": "신칸센+특급 환승",
+      "duration_min": 150,
+      "price": "¥8,000",
+      "frequency": "환승 포함",
+      "note": "나가사키→다케오온천→하카타→구마모토"
+    }
+  }
+}
