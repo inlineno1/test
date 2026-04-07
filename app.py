@@ -60,6 +60,63 @@ def pick_items(items, count, used_names=None):
     return available[:count]
 
 
+def make_restaurant_event(current_time, r, meal_label):
+    """식당 이벤트 딕셔너리 생성"""
+    duration = r.get("duration_min", 50)
+    end_time = add_minutes(current_time, duration)
+
+    rating_str = f" (Tabelog ⭐{r['rating']})" if r.get("rating") else ""
+    desc = r.get("description", "") or f"{r['category']}{rating_str}"
+    if not desc and r.get("rating"):
+        desc = f"Tabelog 평점 {r['rating']}"
+
+    tip_parts = []
+    if r.get("hours"):
+        tip_parts.append(f"영업시간: {r['hours']}")
+    if r.get("station"):
+        tip_parts.append(f"위치: {r['station']}")
+
+    event = {
+        "time": current_time,
+        "end_time": end_time,
+        "title": f"🍽️ [{meal_label}] {r['name']}",
+        "type": "restaurant",
+        "category": r.get("category", ""),
+        "description": desc,
+        "price": r.get("price_range", ""),
+        "must_try": r.get("must_try", ""),
+        "tip": " | ".join(tip_parts) if tip_parts else "",
+    }
+    if r.get("tabelog_url"):
+        event["tabelog_url"] = r["tabelog_url"]
+    if r.get("rating"):
+        event["rating"] = r["rating"]
+    if r.get("google_maps_uri"):
+        event["google_maps_uri"] = r["google_maps_uri"]
+    return event, end_time
+
+
+def make_spot_event(current_time, s):
+    """관광지 이벤트 딕셔너리 생성"""
+    duration = s.get("duration_min", 60)
+    end_time = add_minutes(current_time, duration)
+
+    event = {
+        "time": current_time,
+        "end_time": end_time,
+        "title": f"📍 {s['name']}",
+        "type": "spot",
+        "category": s.get("category", ""),
+        "description": s.get("description", ""),
+        "hours": s.get("hours", ""),
+        "name_ja": s.get("name_ja", ""),
+        "tip": f"소요시간 약 {duration}분",
+    }
+    if s.get("google_maps_uri"):
+        event["google_maps_uri"] = s["google_maps_uri"]
+    return event, end_time
+
+
 def generate_schedule(cities, nights, departure_time="09:00"):
     cities_data = get_cities_data()
     transport_data = get_transport_data()
@@ -214,18 +271,8 @@ def generate_schedule(cities, nights, departure_time="09:00"):
                 if lunch_picks:
                     r = lunch_picks[0]
                     used_restaurants.add(r["name"])
-                    lunch_end = add_minutes(current_time, r["duration_min"])
-                    day_schedule["events"].append({
-                        "time": current_time,
-                        "end_time": lunch_end,
-                        "title": f"🍽️ [점심] {r['name']}",
-                        "type": "restaurant",
-                        "category": r["category"],
-                        "description": r["description"],
-                        "price": r.get("price_range", ""),
-                        "must_try": r.get("must_try", ""),
-                        "tip": f"영업시간: {r['hours']}"
-                    })
+                    event, lunch_end = make_restaurant_event(current_time, r, "점심")
+                    day_schedule["events"].append(event)
                     current_time = lunch_end
                     lunch_done = True
                     continue
@@ -235,18 +282,8 @@ def generate_schedule(cities, nights, departure_time="09:00"):
                 if dinner_picks:
                     r = dinner_picks[0]
                     used_restaurants.add(r["name"])
-                    dinner_end = add_minutes(current_time, r["duration_min"])
-                    day_schedule["events"].append({
-                        "time": current_time,
-                        "end_time": dinner_end,
-                        "title": f"🍽️ [저녁] {r['name']}",
-                        "type": "restaurant",
-                        "category": r["category"],
-                        "description": r["description"],
-                        "price": r.get("price_range", ""),
-                        "must_try": r.get("must_try", ""),
-                        "tip": f"영업시간: {r['hours']}"
-                    })
+                    event, dinner_end = make_restaurant_event(current_time, r, "저녁")
+                    day_schedule["events"].append(event)
                     current_time = dinner_end
                     dinner_done = True
                     continue
@@ -256,20 +293,10 @@ def generate_schedule(cities, nights, departure_time="09:00"):
                 if spot_picks:
                     s = spot_picks[0]
                     used_spots.add(s["name"])
-                    spot_end = add_minutes(current_time, s["duration_min"])
+                    event, spot_end = make_spot_event(current_time, s)
                     if time_to_minutes(spot_end) > time_to_minutes(end_of_day):
                         break
-                    day_schedule["events"].append({
-                        "time": current_time,
-                        "end_time": spot_end,
-                        "title": f"📍 {s['name']}",
-                        "type": "spot",
-                        "category": s["category"],
-                        "description": s["description"],
-                        "hours": s.get("hours", ""),
-                        "name_ja": s.get("name_ja", ""),
-                        "tip": f"소요시간 약 {s['duration_min']}분"
-                    })
+                    day_schedule["events"].append(event)
                     current_time = add_minutes(spot_end, 15)
                     spot_count += 1
                     continue
@@ -281,18 +308,8 @@ def generate_schedule(cities, nights, departure_time="09:00"):
             if lunch_picks:
                 r = lunch_picks[0]
                 used_restaurants.add(r["name"])
-                lunch_end = add_minutes(current_time, r["duration_min"])
-                day_schedule["events"].append({
-                    "time": current_time,
-                    "end_time": lunch_end,
-                    "title": f"🍽️ [점심] {r['name']}",
-                    "type": "restaurant",
-                    "category": r["category"],
-                    "description": r["description"],
-                    "price": r.get("price_range", ""),
-                    "must_try": r.get("must_try", ""),
-                    "tip": f"영업시간: {r['hours']}"
-                })
+                event, lunch_end = make_restaurant_event(current_time, r, "점심")
+                day_schedule["events"].append(event)
                 current_time = lunch_end
 
         if is_last_day and flight_out and flight_dep and checkin_time:
@@ -389,6 +406,26 @@ def api_generate():
         "cities": city_details,
         "nights": nights
     })
+
+
+@app.route("/api/data-info")
+def api_data_info():
+    """현재 데이터 소스 정보 반환"""
+    cities_data = get_cities_data()
+    info = {}
+    for ck, cv in cities_data.items():
+        restaurants = cv.get("restaurants", [])
+        spots = cv.get("spots", [])
+        r_source = restaurants[0].get("source", "static") if restaurants else "없음"
+        s_source = spots[0].get("source", "static") if spots else "없음"
+        info[ck] = {
+            "name_ko": cv["name_ko"],
+            "restaurant_count": len(restaurants),
+            "restaurant_source": r_source,
+            "spot_count": len(spots),
+            "spot_source": s_source,
+        }
+    return jsonify(info)
 
 
 if __name__ == "__main__":

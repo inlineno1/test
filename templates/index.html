@@ -521,6 +521,9 @@ function renderDayHTML(day) {
         if (event.must_try) {
             html += `<div class="mt-2"><span class="must-try-badge text-xs font-bold px-2 py-1 rounded-full">🌟 추천: ${event.must_try}</span></div>`;
         }
+        if (event.rating) {
+            html += `<p class="text-xs text-yellow-600 mt-1">⭐ Tabelog ${event.rating}</p>`;
+        }
         if (event.price) {
             html += `<p class="text-xs text-gray-400 mt-1">💰 ${event.price}</p>`;
         }
@@ -529,6 +532,17 @@ function renderDayHTML(day) {
         }
         if (event.tip) {
             html += `<p class="text-xs text-blue-500 mt-1">💡 ${event.tip}</p>`;
+        }
+        // External links
+        let links = [];
+        if (event.tabelog_url) {
+            links.push(`<a href="${event.tabelog_url}" target="_blank" rel="noopener" class="text-orange-500 hover:text-orange-700 underline">📖 Tabelog</a>`);
+        }
+        if (event.google_maps_uri) {
+            links.push(`<a href="${event.google_maps_uri}" target="_blank" rel="noopener" class="text-blue-500 hover:text-blue-700 underline">📍 Google Maps</a>`);
+        }
+        if (links.length > 0) {
+            html += `<p class="text-xs mt-1.5 flex gap-3">${links.join('')}</p>`;
         }
 
         html += `

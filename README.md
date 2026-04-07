@@ -33,8 +33,35 @@ python app.py
 
 브라우저에서 `http://localhost:5000` 접속
 
+## 데이터 소스
+
+| 데이터 | 소스 | 설명 |
+|--------|------|------|
+| 맛집 | **Tabelog** | 일본 최대 맛집 리뷰 사이트에서 스크래핑 (여행자 예약순, 평점순) |
+| 관광지 | **Google Places API** | Google Places Text Search API로 도시별 관광지 조회 (API 키 필요) |
+| 교통편 | 정적 데이터 | 항공편, 신칸센/특급열차 시간표 |
+
+### 데이터 갱신
+
+```bash
+# Tabelog 맛집 데이터만 갱신
+python fetch_data.py
+
+# Google Places API도 함께 갱신 (API 키 필요)
+export GOOGLE_PLACES_API_KEY='your-api-key'
+python fetch_data.py
+
+# 특정 도시만 갱신
+python fetch_data.py fukuoka nagasaki
+
+# 상세 정보(영업시간 등) 없이 빠르게 갱신
+python fetch_data.py --no-details
+```
+
 ## 기술 스택
 
 - **백엔드**: Python / Flask
 - **프론트엔드**: HTML / Tailwind CSS / Vanilla JS
-- **데이터**: JSON 기반 도시·맛집·교통 정보
+- **맛집 데이터**: Tabelog 스크래핑 (BeautifulSoup)
+- **관광지 데이터**: Google Places API (Text Search)
+- **교통 데이터**: JSON 정적 데이터
